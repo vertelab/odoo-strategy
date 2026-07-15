@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_scenario_tree" model="ir.ui.view">
+        <field name="name">strategy.scenario.tree</field>
+        <field name="model">strategy.scenario</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="forecast_id"/>
+                <field name="new_total_revenue"/>
+                <field name="revenue_impact"/>
+                <field name="profit_impact"/>
+                <field name="new_profit_margin" widget="percentage"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_scenario_form" model="ir.ui.view">
+        <field name="name">strategy.scenario.form</field>
+        <field name="model">strategy.scenario</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="forecast_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Adjustments" name="adjustments">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="category"/>
+                                    <field name="date"/>
+                                    <field name="amount" widget="monetary"/>
+                                    <field name="percentage"/>
+                                    <field name="label"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Outcome" name="outcome">
+                            <group string="Scenario Results">
+                                <field name="new_total_revenue"/>
+                                <field name="new_total_cost"/>
+                                <field name="new_total_profit"/>
+                                <field name="new_profit_margin" widget="percentage"/>
+                                <field name="new_break_even_date"/>
+                            </group>
+                            <group string="Delta vs Baseline">
+                                <field name="revenue_impact"/>
+                                <field name="profit_impact"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_scenario_search" model="ir.ui.view">
+        <field name="name">strategy.scenario.search</field>
+        <field name="model">strategy.scenario</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="forecast_id"/>
+                <group string="Group By">
+                    <filter name="by_forecast" string="Forecast"
+                            domain="[]" context="{'group_by':'forecast_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_scenario" model="ir.actions.act_window">
+        <field name="name">Scenarios</field>
+        <field name="res_model">strategy.scenario</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

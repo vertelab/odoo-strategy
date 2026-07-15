@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- SWOT Tree -->
+    <record id="view_swot_tree" model="ir.ui.view">
+        <field name="name">swot.tree</field>
+        <field name="model">swot.analysis</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="bmc_id"/>
+                <field name="state"/>
+                <field name="create_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- SWOT Form -->
+    <record id="view_swot_form" model="ir.ui.view">
+        <field name="name">swot.form</field>
+        <field name="model">swot.analysis</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="bmc_id"/>
+                        <field name="customer_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Strengths">
+                            <field name="strengths" widget="html"/>
+                        </page>
+                        <page string="Weaknesses">
+                            <field name="weaknesses" widget="html"/>
+                        </page>
+                        <page string="Opportunities">
+                            <field name="opportunities" widget="html"/>
+                        </page>
+                        <page string="Threats">
+                            <field name="threats" widget="html"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_swot" model="ir.actions.act_window">
+        <field name="name">SWOT Analysis</field>
+        <field name="res_model">swot.analysis</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

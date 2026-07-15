@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_risk_tree" model="ir.ui.view">
+        <field name="name">strategy.risk.tree</field>
+        <field name="model">strategy.risk</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="probability"/>
+                <field name="impact_amount"/>
+                <field name="bmc_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_risk_form" model="ir.ui.view">
+        <field name="name">strategy.risk.form</field>
+        <field name="model">strategy.risk</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="bmc_id"/>
+                        <field name="forecast_id"/>
+                    </group>
+                    <group>
+                        <field name="category"/>
+                        <field name="probability"/>
+                        <field name="impact_amount"/>
+                    </group>
+                    <group string="Impact Description">
+                        <field name="impact_description" widget="html"/>
+                    </group>
+                    <group string="Mitigation">
+                        <field name="mitigation" widget="html"/>
+                    </group>
+                    <group string="Actions">
+                        <field name="action_ids"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_action_tree" model="ir.ui.view">
+        <field name="name">strategy.action.tree</field>
+        <field name="model">strategy.action</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="action_type"/>
+                <field name="state"/>
+                <field name="effect_amount"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_action_form" model="ir.ui.view">
+        <field name="name">strategy.action.form</field>
+        <field name="model">strategy.action</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_approve" type="object" string="Approve" states="proposed"/>
+                    <button name="action_start" type="object" string="Start" states="approved"/>
+                    <button name="action_complete" type="object" string="Complete" states="in_progress"/>
+                    <button name="action_dismiss" type="object" string="Dismiss" states="proposed"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="action_type"/>
+                        <field name="risk_id"/>
+                    </group>
+                    <group>
+                        <field name="effect_amount"/>
+                        <field name="effect_description"/>
+                    </group>
+                    <group string="Description">
+                        <field name="description" widget="html"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_risk" model="ir.actions.act_window">
+        <field name="name">Strategic Risks</field>
+        <field name="res_model">strategy.risk</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

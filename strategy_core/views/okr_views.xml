@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_okr_tree" model="ir.ui.view">
+        <field name="name">okr.tree</field>
+        <field name="model">okr.objective</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="progress" widget="progressbar"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_okr_form" model="ir.ui.view">
+        <field name="name">okr.form</field>
+        <field name="model">okr.objective</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="customer_id"/>
+                        <field name="bmc_id"/>
+                    </group>
+                    <group string="Key Results">
+                        <field name="key_result_ids">
+                            <list editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="name"/>
+                                <field name="target_value"/>
+                                <field name="current_value"/>
+                                <field name="unit"/>
+                                <field name="progress" widget="progressbar"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Overall Progress">
+                        <field name="progress" widget="progressbar"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_okr" model="ir.actions.act_window">
+        <field name="name">OKRs</field>
+        <field name="res_model">okr.objective</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

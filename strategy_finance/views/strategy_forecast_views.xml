@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Forecast Tree -->
+    <record id="view_forecast_tree" model="ir.ui.view">
+        <field name="name">strategy.forecast.tree</field>
+        <field name="model">strategy.forecast</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="bmc_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="total_revenue" sum="Total"/>
+                <field name="total_profit" sum="Total"/>
+                <field name="profit_margin" widget="percentage"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Forecast Form -->
+    <record id="view_forecast_form" model="ir.ui.view">
+        <field name="name">strategy.forecast.form</field>
+        <field name="model">strategy.forecast</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_compute" type="object" string="Compute"
+                            class="btn-primary" states="draft"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="bmc_id"/>
+                        <field name="period"/>
+                    </group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <notebook>
+                        <page string="Forecast Lines" name="lines">
+                            <group>
+                                <field name="total_revenue"/>
+                                <field name="total_cost"/>
+                                <field name="total_profit"/>
+                                <field name="profit_margin" widget="percentage"/>
+                                <field name="break_even_date"/>
+                            </group>
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="date"/>
+                                    <field name="revenue"/>
+                                    <field name="cost"/>
+                                    <field name="profit"/>
+                                    <field name="cumulative_profit"/>
+                                    <field name="note"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Scenarios" name="scenarios">
+                            <field name="scenario_ids"/>
+                        </page>
+                        <page string="Risks" name="risks">
+                            <field name="risk_ids"/>
+                        </page>
+                        <page string="Actions" name="actions">
+                            <field name="action_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Forecast Search -->
+    <record id="view_forecast_search" model="ir.ui.view">
+        <field name="name">strategy.forecast.search</field>
+        <field name="model">strategy.forecast</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="bmc_id"/>
+                <filter name="computed" string="Computed"
+                        domain="[('state','=','computed')]"/>
+                <filter name="draft" string="Draft"
+                        domain="[('state','=','draft')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_forecast" model="ir.actions.act_window">
+        <field name="name">Financial Forecasts</field>
+        <field name="res_model">strategy.forecast</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Strategy top-level menu -->
+    <menuitem id="menu_strategy_root"
+              name="Strategy"
+              sequence="60"
+              web_icon="strategy_core,static/description/icon.png"/>
+
+    <!-- Business Model Canvas -->
+    <menuitem id="menu_strategy_bmc"
+              name="Business Model Canvas"
+              parent="menu_strategy_root"
+              sequence="10"
+              action="action_bmc"/>
+
+    <!-- SWOT -->
+    <menuitem id="menu_strategy_swot"
+              name="SWOT Analysis"
+              parent="menu_strategy_root"
+              sequence="20"
+              action="action_swot"/>
+
+    <!-- VPC -->
+    <menuitem id="menu_strategy_vpc"
+              name="Value Proposition Canvas"
+              parent="menu_strategy_root"
+              sequence="30"
+              action="action_vpc"/>
+
+    <!-- OKR -->
+    <menuitem id="menu_strategy_okr"
+              name="OKRs"
+              parent="menu_strategy_root"
+              sequence="40"
+              action="action_okr"/>
+
+    <!-- Risks -->
+    <menuitem id="menu_strategy_risks"
+              name="Strategic Risks"
+              parent="menu_strategy_root"
+              sequence="50"
+              action="action_risk"/>
+
+    <!-- Configuration -->
+    <menuitem id="menu_strategy_config"
+              name="Configuration"
+              parent="menu_strategy_root"
+              sequence="90"
+              groups="group_strategy_manager"/>
+
+    <menuitem id="menu_strategy_skill_import"
+              name="Import Skills"
+              parent="menu_strategy_config"
+              sequence="10"
+              action="action_skill_import"/>
+
+    <!-- Financial -->
+    <menuitem id="menu_strategy_finance"
+              name="Financial"
+              parent="menu_strategy_root"
+              sequence="60"/>
+
+    <menuitem id="menu_strategy_forecast"
+              name="Forecasts"
+              parent="menu_strategy_finance"
+              sequence="10"
+              action="strategy_finance.action_forecast"/>
+
+    <menuitem id="menu_strategy_scenario"
+              name="Scenarios"
+              parent="menu_strategy_finance"
+              sequence="20"
+              action="strategy_finance.action_scenario"/>
+</odoo>

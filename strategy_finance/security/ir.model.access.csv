@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_forecast_manager,strategy.forecast manager,model_strategy_forecast,strategy_core.group_strategy_manager,1,1,1,1
+access_forecast_user,strategy.forecast user,model_strategy_forecast,strategy_core.group_strategy_user,1,1,1,0
+access_forecast_pi,strategy.forecast pi agent,model_strategy_forecast,strategy_core.group_strategy_pi_agent,1,1,1,0
+access_forecast_line_manager,strategy.forecast.line manager,model_strategy_forecast_line,strategy_core.group_strategy_manager,1,1,1,1
+access_forecast_line_user,strategy.forecast.line user,model_strategy_forecast_line,strategy_core.group_strategy_user,1,1,1,0
+access_scenario_manager,strategy.scenario manager,model_strategy_scenario,strategy_core.group_strategy_manager,1,1,1,1
+access_scenario_pi,strategy.scenario pi agent,model_strategy_scenario,strategy_core.group_strategy_pi_agent,1,1,1,0
+access_scenario_line_manager,strategy.scenario.line manager,model_strategy_scenario_line,strategy_core.group_strategy_manager,1,1,1,1

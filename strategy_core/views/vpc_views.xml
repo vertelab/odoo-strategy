@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_vpc_form" model="ir.ui.view">
+        <field name="name">vpc.form</field>
+        <field name="model">value.proposition.canvas</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="bmc_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Customer Profile">
+                            <group string="Customer Jobs">
+                                <field name="customer_jobs" widget="html"/>
+                            </group>
+                            <group string="Pains">
+                                <field name="pains" widget="html"/>
+                            </group>
+                            <group string="Gains">
+                                <field name="gains" widget="html"/>
+                            </group>
+                        </page>
+                        <page string="Value Map">
+                            <group string="Products &amp; Services">
+                                <field name="products_services" widget="html"/>
+                            </group>
+                            <group string="Pain Relievers">
+                                <field name="pain_relievers" widget="html"/>
+                            </group>
+                            <group string="Gain Creators">
+                                <field name="gain_creators" widget="html"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vpc" model="ir.actions.act_window">
+        <field name="name">Value Proposition Canvas</field>
+        <field name="res_model">value.proposition.canvas</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

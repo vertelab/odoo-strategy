@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Business Model Canvas Tree -->
+    <record id="view_bmc_tree" model="ir.ui.view">
+        <field name="name">bmc.tree</field>
+        <field name="model">business.model.canvas</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="state"/>
+                <field name="user_id"/>
+                <field name="create_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Business Model Canvas Form -->
+    <record id="view_bmc_form" model="ir.ui.view">
+        <field name="name">bmc.form</field>
+        <field name="model">business.model.canvas</field>
+        <field name="arch" type="xml">
+            <form string="Business Model Canvas">
+                <header>
+                    <button name="action_validate" type="object" string="Validate" class="btn-primary"
+                            states="draft,in_review"/>
+                    <button name="action_review" type="object" string="Send for Review"
+                            states="draft"/>
+                    <button name="action_draft" type="object" string="Reset to Draft"
+                            states="validated"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Business Name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <field name="skill_id"/>
+                            <field name="generated_by"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <!-- Right side: Customer-facing -->
+                        <page string="Customer Segments" name="segments">
+                            <field name="customer_segments" widget="html"/>
+                        </page>
+                        <page string="Value Propositions" name="value_props">
+                            <field name="value_propositions" widget="html"/>
+                        </page>
+                        <page string="Channels" name="channels">
+                            <field name="channels" widget="html"/>
+                        </page>
+                        <page string="Customer Relationships" name="relationships">
+                            <field name="customer_relationships" widget="html"/>
+                        </page>
+                        <!-- Left side: Infrastructure -->
+                        <page string="Revenue Streams" name="revenue">
+                            <field name="revenue_streams" widget="html"/>
+                        </page>
+                        <page string="Key Resources" name="resources">
+                            <field name="key_resources" widget="html"/>
+                        </page>
+                        <page string="Key Activities" name="activities">
+                            <field name="key_activities" widget="html"/>
+                        </page>
+                        <page string="Key Partnerships" name="partnerships">
+                            <field name="key_partnerships" widget="html"/>
+                        </page>
+                        <page string="Cost Structure" name="costs">
+                            <field name="cost_structure" widget="html"/>
+                        </page>
+                        <!-- Related -->
+                        <page string="Related" name="related">
+                            <group string="Marketing Plans">
+                                <field name="plan_ids"/>
+                            </group>
+                            <group string="SWOT Analyses">
+                                <field name="swot_ids"/>
+                            </group>
+                            <group string="Financial Forecasts">
+                                <field name="forecast_ids"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Business Model Canvas Search -->
+    <record id="view_bmc_search" model="ir.ui.view">
+        <field name="name">bmc.search</field>
+        <field name="model">business.model.canvas</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="customer_id"/>
+                <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="validated" string="Validated" domain="[('state','=','validated')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="by_state" string="Status" domain="[]" context="{'group_by':'state'}"/>
+                    <filter name="by_customer" string="Customer" domain="[]" context="{'group_by':'customer_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- BMC Action -->
+    <record id="action_bmc" model="ir.actions.act_window">
+        <field name="name">Business Model Canvas</field>
+        <field name="res_model">business.model.canvas</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Business Model Canvas
+            </p>
+            <p>
+                A Business Model Canvas describes how your organization creates,
+                delivers, and captures value. Use the 9 building blocks to map
+                your business model.
+            </p>
+        </field>
+    </record>
+</odoo>

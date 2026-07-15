@@ -1,0 +1,19 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bmc_manager,business.model.canvas manager,model_business_model_canvas,group_strategy_manager,1,1,1,1
+access_bmc_user,business.model.canvas user,model_business_model_canvas,group_strategy_user,1,1,1,0
+access_bmc_pi,business.model.canvas pi agent,model_business_model_canvas,group_strategy_pi_agent,1,1,1,0
+access_swot_manager,swot.analysis manager,model_swot_analysis,group_strategy_manager,1,1,1,1
+access_swot_user,swot.analysis user,model_swot_analysis,group_strategy_user,1,1,1,0
+access_swot_pi,swot.analysis pi agent,model_swot_analysis,group_strategy_pi_agent,1,1,1,0
+access_vpc_manager,value.proposition.canvas manager,model_value_proposition_canvas,group_strategy_manager,1,1,1,1
+access_vpc_user,value.proposition.canvas user,model_value_proposition_canvas,group_strategy_user,1,1,1,0
+access_vpc_pi,value.proposition.canvas pi agent,model_value_proposition_canvas,group_strategy_pi_agent,1,1,1,0
+access_okr_manager,okr.objective manager,model_okr_objective,group_strategy_manager,1,1,1,1
+access_okr_user,okr.objective user,model_okr_objective,group_strategy_user,1,1,1,0
+access_okr_pi,okr.objective pi agent,model_okr_objective,group_strategy_pi_agent,1,1,1,0
+access_okr_kr_manager,okr.key.result manager,model_okr_key_result,group_strategy_manager,1,1,1,1
+access_okr_kr_user,okr.key.result user,model_okr_key_result,group_strategy_user,1,1,0,0
+access_risk_manager,strategy.risk manager,model_strategy_risk,group_strategy_manager,1,1,1,1
+access_risk_pi,strategy.risk pi agent,model_strategy_risk,group_strategy_pi_agent,1,1,1,0
+access_action_manager,strategy.action manager,model_strategy_action,group_strategy_manager,1,1,1,1
+access_action_pi,strategy.action pi agent,model_strategy_action,group_strategy_pi_agent,1,1,1,0

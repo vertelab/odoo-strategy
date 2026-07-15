@@ -1,0 +1,81 @@
+dashboard:
+  key: strategy_dashboard_vrtl_overview
+  name: "Strategy Overview"
+  name_sv: "Strategiöversikt"
+  description: "Business model canvas, financial forecasts, scenarios, and strategic risks"
+  icon: fa-chess
+  category: Strategy
+  auto_refresh: 900000
+  cache_ttl: 900
+
+filters:
+  - key: bmc
+    type: model_select
+    label: "Business Model"
+    label_sv: "Affärsmodell"
+    optional: true
+    model: business.model.canvas
+    domain:
+      - [state, "=", validated]
+    empty_label: "All"
+
+  - key: scenarios
+    type: model_select
+    label: "Scenarios"
+    label_sv: "Scenarier"
+    optional: true
+    model: strategy.scenario
+    multi: true
+
+metrics:
+  - key: strategy.bmc_summary
+    label: "Business Model Summary"
+    label_sv: "Affärsmodellsöversikt"
+    source_type: model
+    model: business.model.canvas
+    method: search_read
+    domain: []
+    fields:
+      - name
+      - state
+      - customer_id
+
+  - key: strategy.forecast_trend
+    label: "Forecast Trend"
+    label_sv: "Prognostrend"
+    source_type: model
+    model: strategy.forecast.line
+    method: search_read
+    domain: []
+    fields:
+      - date
+      - revenue
+      - cost
+      - profit
+
+  - key: strategy.scenario_comparison
+    label: "Scenario Comparison"
+    label_sv: "Scenariojämförelse"
+    source_type: model
+    model: strategy.scenario
+    method: search_read
+    domain: []
+    fields:
+      - name
+      - new_total_revenue
+      - new_total_profit
+      - revenue_impact
+      - profit_impact
+
+  - key: strategy.risk_heatmap
+    label: "Risk Heatmap"
+    label_sv: "Riskvärmekarta"
+    source_type: model
+    model: strategy.risk
+    method: search_read
+    domain: []
+    fields:
+      - name
+      - category
+      - probability
+      - impact_amount
