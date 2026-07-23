@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_server_sync_export_xml" model="ir.actions.server">
+        <field name="name">Export to Odoo XML</field>
+        <field name="model_id" ref="model_strategy_skill"/>
+        <field name="binding_model_id" ref="model_strategy_skill"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">action = env['strategy.skill.sync'].create({'direction':'export','format':'xml','skill_ids':[(6,0,env.context.get('active_ids',[]))]}).action_sync()</field>
+    </record>
+    <record id="action_server_sync_export_md" model="ir.actions.server">
+        <field name="name">Export to SKILL.md</field>
+        <field name="model_id" ref="model_strategy_skill"/>
+        <field name="binding_model_id" ref="model_strategy_skill"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">action = env['strategy.skill.sync'].create({'direction':'export','format':'skill_md','skill_ids':[(6,0,env.context.get('active_ids',[]))]}).action_sync()</field>
+    </record>
+    <record id="action_server_sync_import_md" model="ir.actions.server">
+        <field name="name">Import from SKILL.md</field>
+        <field name="model_id" ref="model_strategy_skill"/>
+        <field name="binding_model_id" ref="model_strategy_skill"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = env['strategy.skill.sync'].create({'direction':'import','format':'skill_md'}).action_sync()</field>
+    </record>
+    <record id="action_skill_sync" model="ir.actions.act_window">
+        <field name="name">Sync Strategy Skills</field>
+        <field name="res_model">strategy.skill.sync</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_strategy_skill"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

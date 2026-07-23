@@ -1,21 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Security groups for strategy modules -->
     <record id="group_strategy_manager" model="res.groups">
         <field name="name">Strategy Manager</field>
         <field name="category_id" ref="base.module_category_hidden"/>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
     </record>
-
     <record id="group_strategy_pi_agent" model="res.groups">
         <field name="name">Strategy Pi Agent</field>
         <field name="category_id" ref="base.module_category_hidden"/>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
     </record>
-
     <record id="group_strategy_user" model="res.groups">
         <field name="name">Strategy User</field>
         <field name="category_id" ref="base.module_category_hidden"/>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
     </record>
+
+    <record id="access_bmc_manager" model="ir.model.access">
+        <field name="name">bmc manager</field>
+        <field name="model_id" ref="model_business_model_canvas"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_bmc_user" model="ir.model.access">
+        <field name="name">bmc user</field>
+        <field name="model_id" ref="model_business_model_canvas"/>
+        <field name="group_id" ref="group_strategy_user"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_bmc_pi" model="ir.model.access">
+        <field name="name">bmc pi</field>
+        <field name="model_id" ref="model_business_model_canvas"/>
+        <field name="group_id" ref="group_strategy_pi_agent"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="access_swot_manager" model="ir.model.access">
+        <field name="name">swot manager</field>
+        <field name="model_id" ref="model_swot_analysis"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_swot_user" model="ir.model.access">
+        <field name="name">swot user</field>
+        <field name="model_id" ref="model_swot_analysis"/>
+        <field name="group_id" ref="group_strategy_user"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_swot_pi" model="ir.model.access">
+        <field name="name">swot pi</field>
+        <field name="model_id" ref="model_swot_analysis"/>
+        <field name="group_id" ref="group_strategy_pi_agent"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="access_vpc_manager" model="ir.model.access">
+        <field name="name">vpc manager</field>
+        <field name="model_id" ref="model_value_proposition_canvas"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_vpc_user" model="ir.model.access">
+        <field name="name">vpc user</field>
+        <field name="model_id" ref="model_value_proposition_canvas"/>
+        <field name="group_id" ref="group_strategy_user"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_vpc_pi" model="ir.model.access">
+        <field name="name">vpc pi</field>
+        <field name="model_id" ref="model_value_proposition_canvas"/>
+        <field name="group_id" ref="group_strategy_pi_agent"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="access_okr_manager" model="ir.model.access">
+        <field name="name">okr manager</field>
+        <field name="model_id" ref="model_okr_objective"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_okr_user" model="ir.model.access">
+        <field name="name">okr user</field>
+        <field name="model_id" ref="model_okr_objective"/>
+        <field name="group_id" ref="group_strategy_user"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_okr_pi" model="ir.model.access">
+        <field name="name">okr pi</field>
+        <field name="model_id" ref="model_okr_objective"/>
+        <field name="group_id" ref="group_strategy_pi_agent"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_okr_kr_manager" model="ir.model.access">
+        <field name="name">okr kr manager</field>
+        <field name="model_id" ref="model_okr_key_result"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_okr_kr_user" model="ir.model.access">
+        <field name="name">okr kr user</field>
+        <field name="model_id" ref="model_okr_key_result"/>
+        <field name="group_id" ref="group_strategy_user"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="access_risk_manager" model="ir.model.access">
+        <field name="name">risk manager</field>
+        <field name="model_id" ref="model_strategy_risk"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_risk_pi" model="ir.model.access">
+        <field name="name">risk pi</field>
+        <field name="model_id" ref="model_strategy_risk"/>
+        <field name="group_id" ref="group_strategy_pi_agent"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="access_action_manager" model="ir.model.access">
+        <field name="name">action manager</field>
+        <field name="model_id" ref="model_strategy_action"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_action_pi" model="ir.model.access">
+        <field name="name">action pi</field>
+        <field name="model_id" ref="model_strategy_action"/>
+        <field name="group_id" ref="group_strategy_pi_agent"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="access_skill_manager" model="ir.model.access">
+        <field name="name">skill manager</field>
+        <field name="model_id" ref="model_strategy_skill"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_skill_user" model="ir.model.access">
+        <field name="name">skill user</field>
+        <field name="model_id" ref="model_strategy_skill"/>
+        <field name="group_id" ref="group_strategy_user"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/><field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_skill_pi" model="ir.model.access">
+        <field name="name">skill pi</field>
+        <field name="model_id" ref="model_strategy_skill"/>
+        <field name="group_id" ref="group_strategy_pi_agent"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="access_skill_sync_manager" model="ir.model.access">
+        <field name="name">skill sync manager</field>
+        <field name="model_id" ref="model_strategy_skill_sync"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_skill_sync_user" model="ir.model.access">
+        <field name="name">skill sync user</field>
+        <field name="model_id" ref="model_strategy_skill_sync"/>
+        <field name="group_id" ref="group_strategy_user"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_plan_manager" model="ir.model.access">
+        <field name="name">plan manager</field>
+        <field name="model_id" ref="model_strategy_plan"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_plan_user" model="ir.model.access">
+        <field name="name">plan user</field>
+        <field name="model_id" ref="model_strategy_plan"/>
+        <field name="group_id" ref="group_strategy_user"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_plan_pi" model="ir.model.access">
+        <field name="name">plan pi</field>
+        <field name="model_id" ref="model_strategy_plan"/>
+        <field name="group_id" ref="group_strategy_pi_agent"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="access_vision_manager" model="ir.model.access">
+        <field name="name">vision manager</field>
+        <field name="model_id" ref="model_strategy_vision"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_vision_user" model="ir.model.access">
+        <field name="name">vision user</field>
+        <field name="model_id" ref="model_strategy_vision"/>
+        <field name="group_id" ref="group_strategy_user"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_vision_pi" model="ir.model.access">
+        <field name="name">vision pi</field>
+        <field name="model_id" ref="model_strategy_vision"/>
+        <field name="group_id" ref="group_strategy_pi_agent"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="access_initiative_manager" model="ir.model.access">
+        <field name="name">initiative manager</field>
+        <field name="model_id" ref="model_strategy_initiative"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_initiative_user" model="ir.model.access">
+        <field name="name">initiative user</field>
+        <field name="model_id" ref="model_strategy_initiative"/>
+        <field name="group_id" ref="group_strategy_user"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_initiative_pi" model="ir.model.access">
+        <field name="name">initiative pi</field>
+        <field name="model_id" ref="model_strategy_initiative"/>
+        <field name="group_id" ref="group_strategy_pi_agent"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+
 </odoo>

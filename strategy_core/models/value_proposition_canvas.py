@@ -1,7 +1,7 @@
 # Copyright (C) 2026 Vertel Sverige AB (<https://vertel.se>).
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class ValuePropositionCanvas(models.Model):
@@ -11,6 +11,7 @@ class ValuePropositionCanvas(models.Model):
 
     name = fields.Char('Name', required=True)
     bmc_id = fields.Many2one('business.model.canvas', 'Business Model Canvas', ondelete='cascade')
+    plan_id = fields.Many2one('strategy.plan', 'Strategic Plan', ondelete='set null')
     customer_id = fields.Many2one('res.partner', 'Customer')
 
     # Customer Profile
@@ -32,55 +33,3 @@ class ValuePropositionCanvas(models.Model):
     ], default='draft')
 
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
-
-
-class OKRObjective(models.Model):
-    _name = 'okr.objective'
-    _description = 'OKR Objective'
-    _inherit = ['mail.thread']
-    _order = 'sequence, name'
-
-    name = fields.Char('Objective', required=True)
-    description = fields.Html('Description')
-    bmc_id = fields.Many2one('business.model.canvas', 'From BMC', ondelete='set null')
-    customer_id = fields.Many2one('res.partner', 'Customer')
-
-    key_result_ids = fields.One2many('okr.key.result', 'objective_id', 'Key Results')
-    progress = fields.Float('Progress %', compute='_compute_progress', store=True)
-
-    sequence = fields.Integer('Sequence', default=10)
-    state = fields.Selection([
-        ('draft', 'Draft'),
-        ('active', 'Active'),
-        ('completed', 'Completed'),
-    ], default='draft', tracking=True)
-
-    company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
-
-    @api.depends('key_result_ids.progress')
-    def _compute_progress(self):
-        for obj in self:
-            krs = obj.key_result_ids
-            obj.progress = sum(krs.mapped('progress')) / len(krs) * 100 if krs else 0.0
-
-
-class OKRKeyResult(models.Model):
-    _name = 'okr.key.result'
-    _description = 'OKR Key Result'
-    _order = 'sequence, name'
-
-    objective_id = fields.Many2one('okr.objective', 'Objective', required=True, ondelete='cascade')
-    name = fields.Char('Key Result', required=True)
-    target_value = fields.Float('Target')
-    current_value = fields.Float('Current')
-    progress = fields.Float('Progress %', compute='_compute_progress', store=True)
-    unit = fields.Char('Unit', default='%')
-    sequence = fields.Integer('Sequence', default=10)
-
-    @api.depends('target_value', 'current_value')
-    def _compute_progress(self):
-        for kr in self:
-            if kr.target_value:
-                kr.progress = min(100.0, (kr.current_value / kr.target_value) * 100)
-            else:
-                kr.progress = 0.0

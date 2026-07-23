@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================ -->
+    <!-- STRATEGY PLAN                                                     -->
+    <!-- ================================================================ -->
+
+    <record id="view_strategy_plan_tree" model="ir.ui.view">
+        <field name="name">strategy.plan.tree</field>
+        <field name="model">strategy.plan</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="progress" widget="progressbar"/>
+                <field name="state" widget="badge"/>
+                <field name="user_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_strategy_plan_form" model="ir.ui.view">
+        <field name="name">strategy.plan.form</field>
+        <field name="model">strategy.plan</field>
+        <field name="arch" type="xml">
+            <form string="Strategic Plan">
+                <header>
+                    <button name="action_activate" type="object" string="Activate"
+                            class="btn-primary"
+                            invisible="state not in ('draft','under_review')"/>
+                    <button name="action_review" type="object" string="Send for Review"
+                            invisible="state != 'draft'"/>
+                    <button name="action_complete" type="object" string="Mark Complete"
+                            invisible="state != 'active'"/>
+                    <button name="action_archive" type="object" string="Archive"
+                            invisible="state == 'archived'"/>
+                    <button name="action_draft" type="object" string="Reset to Draft"
+                            invisible="state not in ('active','completed')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Strategic Plan Name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="progress" widget="progressbar"/>
+                        </group>
+                    </group>
+                    <group string="Executive Summary">
+                        <field name="description" widget="html"/>
+                    </group>
+                    <notebook>
+                        <page string="Vision &amp; Values" name="vision">
+                            <field name="vision_ids" mode="list,form">
+                                <list>
+                                    <field name="sequence" widget="handle"/>
+                                    <button name="open_form" type="object"
+                                            icon="fa-pencil" title="Edit Vision"
+                                            class="btn-link"/>
+                                    <field name="document_type"/>
+                                    <field name="name"/>
+                                    <field name="version"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Business Model Canvas" name="bmc">
+                            <field name="bmc_ids" mode="list,form">
+                                <list>
+                                    <button name="open_form" type="object"
+                                            icon="fa-pencil" title="Edit BMC"
+                                            class="btn-link"/>
+                                    <field name="name"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="user_id"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="SWOT" name="swot">
+                            <field name="swot_ids"/>
+                        </page>
+                        <page string="VPC" name="vpc">
+                            <field name="vpc_ids"/>
+                        </page>
+                        <page string="OKRs" name="okrs">
+                            <field name="objective_ids" mode="list,form">
+                                <list>
+                                    <button name="open_form" type="object"
+                                            icon="fa-pencil" title="Edit OKR"
+                                            class="btn-link"/>
+                                    <field name="name"/>
+                                    <field name="progress" widget="progressbar"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Initiatives" name="initiatives">
+                            <field name="initiative_ids" mode="list,form">
+                                <list>
+                                    <button name="open_form" type="object"
+                                            icon="fa-pencil" title="Edit Initiative"
+                                            class="btn-link"/>
+                                    <field name="name"/>
+                                    <field name="owner_id"/>
+                                    <field name="progress" widget="progressbar"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Risks" name="risks">
+                            <field name="risk_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="category"/>
+                                    <field name="probability"/>
+                                    <field name="impact_amount"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_strategy_plan_search" model="ir.ui.view">
+        <field name="name">strategy.plan.search</field>
+        <field name="model">strategy.plan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="user_id"/>
+                <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="active" string="Active" domain="[('state','=','active')]"/>
+                <filter name="completed" string="Completed" domain="[('state','=','completed')]"/>
+                <separator/>
+                <filter name="my_plans" string="My Plans" domain="[('user_id','=',uid)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="by_state" string="Status" domain="[]" context="{'group_by':'state'}"/>
+                    <filter name="by_customer" string="Customer" domain="[]" context="{'group_by':'customer_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_strategy_plan" model="ir.actions.act_window">
+        <field name="name">Strategic Plans</field>
+        <field name="res_model">strategy.plan</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Strategic Plan
+            </p>
+            <p>
+                A Strategic Plan ties together all your strategy artifacts —
+                Vision, BMC, SWOT, OKRs, Initiatives, Risks, and Forecasts —
+                into one coherent document.
+            </p>
+        </field>
+    </record>
+
+
+    <!-- ================================================================ -->
+    <!-- STRATEGY VISION (Vision / Mission / Values documents)             -->
+    <!-- ================================================================ -->
+
+    <record id="view_strategy_vision_tree" model="ir.ui.view">
+        <field name="name">strategy.vision.tree</field>
+        <field name="model">strategy.vision</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="document_type"/>
+                <field name="name"/>
+                <field name="version"/>
+                <field name="state" widget="badge"/>
+                <field name="approved_date"/>
+                <field name="user_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_strategy_vision_form" model="ir.ui.view">
+        <field name="name">strategy.vision.form</field>
+        <field name="model">strategy.vision</field>
+        <field name="arch" type="xml">
+            <form string="Vision Document">
+                <header>
+                    <button name="action_review" type="object" string="Send for Review"
+                            invisible="state != 'draft'" class="btn-secondary"/>
+                    <button name="action_approve" type="object" string="Approve"
+                            invisible="state not in ('draft','in_review')" class="btn-primary"/>
+                    <button name="action_draft" type="object" string="Edit (New Draft)"
+                            invisible="state not in ('approved','archived')" class="btn-secondary"/>
+                    <button name="action_archive" type="object" string="Archive"
+                            invisible="state not in ('draft','in_review','approved')"/>
+                    <button name="action_ai_improve" type="object" string="Improve with AI"
+                            invisible="state not in ('draft','in_review')"
+                            class="btn-primary" icon="fa-magic"
+                            help="Let AI read your content and suggest improvements"/>
+                    <button name="action_ai_analyze" type="object" string="Analyze with AI"
+                            invisible="state not in ('draft','in_review')"
+                            class="btn-secondary" icon="fa-search"
+                            help="Let AI analyze your document and provide insights"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Document Title"/>
+                        </h1>
+                        <h3>
+                            <field name="version" class="oe_inline"/>
+                        </h3>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="document_type"/>
+                            <field name="plan_id"/>
+                        </group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="generated_by" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Content" name="content">
+                            <field name="content" widget="html"/>
+                        </page>
+                        <page string="Version" name="version">
+                            <group>
+                                <group string="Version Number">
+                                    <field name="major_version"/>
+                                    <field name="minor_version"/>
+                                </group>
+                                <group string="Approval">
+                                    <field name="approved_date"/>
+                                    <field name="approved_by"/>
+                                </group>
+                            </group>
+                            <group string="Version Notes">
+                                <field name="version_notes" placeholder="What changed in this version?"/>
+                            </group>
+                        </page>
+                        <page string="AI Assistant" name="ai"
+                              invisible="not ai_improved_content and not ai_analysis">
+                            <group string="AI Analysis" invisible="not ai_analysis">
+                                <field name="ai_analysis" widget="html"/>
+                            </group>
+                            <group string="AI Improved Content" invisible="not ai_improved_content">
+                                <field name="ai_improved_content" widget="html"/>
+                                <group>
+                                    <button name="action_ai_apply" type="object"
+                                            string="Apply &amp; Save" class="btn-success"
+                                            icon="fa-check"
+                                            help="Replace current content with AI version"/>
+                                    <button name="action_ai_discard" type="object"
+                                            string="Discard" class="btn-secondary"
+                                            icon="fa-times"
+                                            help="Discard the AI suggestion"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_strategy_vision_search" model="ir.ui.view">
+        <field name="name">strategy.vision.search</field>
+        <field name="model">strategy.vision</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="document_type"/>
+                <field name="plan_id"/>
+                <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="approved" string="Approved" domain="[('state','=','approved')]"/>
+                <filter name="vision" string="Vision" domain="[('document_type','=','vision')]"/>
+                <filter name="mission" string="Mission" domain="[('document_type','=','mission')]"/>
+                <filter name="values" string="Core Values" domain="[('document_type','=','values')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="by_type" string="Document Type" domain="[]" context="{'group_by':'document_type'}"/>
+                    <filter name="by_state" string="Status" domain="[]" context="{'group_by':'state'}"/>
+                    <filter name="by_plan" string="Plan" domain="[]" context="{'group_by':'plan_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_strategy_vision" model="ir.actions.act_window">
+        <field name="name">Vision &amp; Values</field>
+        <field name="res_model">strategy.vision</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Define your Vision, Mission &amp; Values
+            </p>
+            <p>
+                Create foundation documents that define your organization's
+                purpose, direction, and principles. Each document is versioned —
+                major versions auto-increment on approval.
+            </p>
+        </field>
+    </record>
+
+
+    <!-- ================================================================ -->
+    <!-- STRATEGIC INITIATIVE                                              -->
+    <!-- ================================================================ -->
+
+    <record id="view_strategy_initiative_tree" model="ir.ui.view">
+        <field name="name">strategy.initiative.tree</field>
+        <field name="model">strategy.initiative</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="progress" widget="progressbar"/>
+                <field name="budget" widget="monetary"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_strategy_initiative_form" model="ir.ui.view">
+        <field name="name">strategy.initiative.form</field>
+        <field name="model">strategy.initiative</field>
+        <field name="arch" type="xml">
+            <form string="Strategic Initiative">
+                <header>
+                    <button name="action_approve" type="object" string="Approve"
+                            invisible="state != 'proposed'" class="btn-primary"/>
+                    <button name="action_start" type="object" string="Start"
+                            invisible="state != 'approved'" class="btn-success"/>
+                    <button name="action_flag_risk" type="object" string="Flag At Risk"
+                            invisible="state != 'in_progress'" class="btn-warning"/>
+                    <button name="action_complete" type="object" string="Complete"
+                            invisible="state not in ('in_progress','at_risk')" class="btn-success"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('completed','cancelled')"/>
+                    <button name="action_reopen" type="object" string="Reopen"
+                            invisible="state not in ('completed','cancelled')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Initiative Name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="plan_id"/>
+                            <field name="owner_id"/>
+                            <field name="team_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="progress" widget="progressbar"/>
+                        </group>
+                    </group>
+                    <group string="Budget">
+                        <group>
+                            <field name="budget" widget="monetary"/>
+                            <field name="spent" widget="monetary"/>
+                            <field name="budget_remaining" widget="monetary"/>
+                        </group>
+                        <group>
+                            <field name="manual_progress"
+                                   help="Set manually if progress is not derived from OKRs"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" name="description">
+                            <field name="description" widget="html"/>
+                        </page>
+                        <page string="Success Criteria" name="criteria">
+                            <field name="success_criteria" widget="html"/>
+                        </page>
+                        <page string="Deliverables" name="deliverables">
+                            <field name="deliverables" widget="html"/>
+                        </page>
+                        <page string="OKR Objectives" name="objectives">
+                            <field name="objective_ids" domain="[('plan_id','=',plan_id)]">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="progress" widget="progressbar"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Actions" name="actions">
+                            <field name="action_ids" mode="list,form">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="action_type"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="effect_amount" widget="monetary"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Risks" name="risks">
+                            <field name="risk_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="category"/>
+                                    <field name="probability"/>
+                                    <field name="impact_amount"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Dependencies" name="dependencies">
+                            <field name="dependencies" widget="html"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_strategy_initiative_search" model="ir.ui.view">
+        <field name="name">strategy.initiative.search</field>
+        <field name="model">strategy.initiative</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="plan_id"/>
+                <filter name="active" string="Active"
+                        domain="[('state','in',['in_progress','at_risk'])]"/>
+                <filter name="proposed" string="Proposed"
+                        domain="[('state','=','proposed')]"/>
+                <filter name="completed" string="Completed"
+                        domain="[('state','=','completed')]"/>
+                <filter name="my_initiatives" string="My Initiatives"
+                        domain="[('owner_id','=',uid)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="by_state" string="Status" domain="[]" context="{'group_by':'state'}"/>
+                    <filter name="by_owner" string="Owner" domain="[]" context="{'group_by':'owner_id'}"/>
+                    <filter name="by_plan" string="Plan" domain="[]" context="{'group_by':'plan_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_strategy_initiative" model="ir.actions.act_window">
+        <field name="name">Strategic Initiatives</field>
+        <field name="res_model">strategy.initiative</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Strategic Initiative
+            </p>
+            <p>
+                Strategic Initiatives are projects or programs that drive your
+                OKR objectives. Link them to objectives, assign budget and team,
+                and track progress.
+            </p>
+        </field>
+    </record>
+
+</odoo>

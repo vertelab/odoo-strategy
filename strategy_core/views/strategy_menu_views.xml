@@ -1,74 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Strategy top-level menu -->
-    <menuitem id="menu_strategy_root"
-              name="Strategy"
-              sequence="60"
-              web_icon="strategy_core,static/description/icon.png"/>
+    <menuitem id="menu_strategy_root" name="Strategy" sequence="60" web_icon="strategy_core,static/description/icon.png"/>
+    <menuitem id="menu_strategy_plans" name="Strategic Plans" parent="menu_strategy_root" sequence="5" action="action_strategy_plan"/>
+    <menuitem id="menu_strategy_vision" name="Vision &amp; Values" parent="menu_strategy_root" sequence="7" action="action_strategy_vision"/>
+    <menuitem id="menu_strategy_bmc" name="Business Model Canvas" parent="menu_strategy_root" sequence="10" action="action_bmc"/>
+    <menuitem id="menu_strategy_swot" name="SWOT Analysis" parent="menu_strategy_root" sequence="20" action="action_swot"/>
+    <menuitem id="menu_strategy_vpc" name="Value Proposition Canvas" parent="menu_strategy_root" sequence="30" action="action_vpc"/>
+    <menuitem id="menu_strategy_okr" name="OKRs" parent="menu_strategy_root" sequence="40" action="action_okr"/>
+    <menuitem id="menu_strategy_initiatives" name="Initiatives" parent="menu_strategy_root" sequence="45" action="action_strategy_initiative"/>
+    <menuitem id="menu_strategy_risks" name="Strategic Risks" parent="menu_strategy_root" sequence="50" action="action_risk"/>
+    <menuitem id="menu_strategy_skills" name="Strategy Skills" parent="menu_strategy_root" sequence="55" action="action_strategy_skill"/>
+    <menuitem id="menu_strategy_config" name="Configuration" parent="menu_strategy_root" sequence="90" groups="group_strategy_manager"/>
+    <menuitem id="menu_strategy_skill_sync" name="Sync Skills" parent="menu_strategy_config" sequence="10" action="action_skill_sync"/>
 
-    <!-- Business Model Canvas -->
-    <menuitem id="menu_strategy_bmc"
-              name="Business Model Canvas"
-              parent="menu_strategy_root"
-              sequence="10"
-              action="action_bmc"/>
-
-    <!-- SWOT -->
-    <menuitem id="menu_strategy_swot"
-              name="SWOT Analysis"
-              parent="menu_strategy_root"
-              sequence="20"
-              action="action_swot"/>
-
-    <!-- VPC -->
-    <menuitem id="menu_strategy_vpc"
-              name="Value Proposition Canvas"
-              parent="menu_strategy_root"
-              sequence="30"
-              action="action_vpc"/>
-
-    <!-- OKR -->
-    <menuitem id="menu_strategy_okr"
-              name="OKRs"
-              parent="menu_strategy_root"
-              sequence="40"
-              action="action_okr"/>
-
-    <!-- Risks -->
-    <menuitem id="menu_strategy_risks"
-              name="Strategic Risks"
-              parent="menu_strategy_root"
-              sequence="50"
-              action="action_risk"/>
-
-    <!-- Configuration -->
-    <menuitem id="menu_strategy_config"
-              name="Configuration"
-              parent="menu_strategy_root"
-              sequence="90"
-              groups="group_strategy_manager"/>
-
-    <menuitem id="menu_strategy_skill_import"
-              name="Import Skills"
-              parent="menu_strategy_config"
-              sequence="10"
-              action="action_skill_import"/>
-
-    <!-- Financial -->
-    <menuitem id="menu_strategy_finance"
-              name="Financial"
-              parent="menu_strategy_root"
-              sequence="60"/>
-
-    <menuitem id="menu_strategy_forecast"
-              name="Forecasts"
-              parent="menu_strategy_finance"
-              sequence="10"
-              action="strategy_finance.action_forecast"/>
-
-    <menuitem id="menu_strategy_scenario"
-              name="Scenarios"
-              parent="menu_strategy_finance"
-              sequence="20"
-              action="strategy_finance.action_scenario"/>
 </odoo>

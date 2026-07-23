@@ -11,6 +11,7 @@ class SWOTAnalysis(models.Model):
     _order = 'create_date desc'
 
     name = fields.Char('Name', required=True)
+    plan_id = fields.Many2one('strategy.plan', 'Strategic Plan', ondelete='set null')
     bmc_id = fields.Many2one('business.model.canvas', 'Business Model Canvas', ondelete='cascade')
     customer_id = fields.Many2one('res.partner', 'Customer')
 

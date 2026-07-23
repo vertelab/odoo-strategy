@@ -23,11 +23,11 @@
             <form string="Business Model Canvas">
                 <header>
                     <button name="action_validate" type="object" string="Validate" class="btn-primary"
-                            states="draft,in_review"/>
+                            invisible="state not in ('draft','in_review')"/>
                     <button name="action_review" type="object" string="Send for Review"
-                            states="draft"/>
+                            invisible="state != 'draft'"/>
                     <button name="action_draft" type="object" string="Reset to Draft"
-                            states="validated"/>
+                            invisible="state != 'validated'"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -40,6 +40,7 @@
                             <field name="user_id"/>
                         </group>
                         <group>
+                            <field name="plan_id"/>
                             <field name="skill_id"/>
                             <field name="generated_by"/>
                         </group>
@@ -76,23 +77,13 @@
                         </page>
                         <!-- Related -->
                         <page string="Related" name="related">
-                            <group string="Marketing Plans">
-                                <field name="plan_ids"/>
-                            </group>
                             <group string="SWOT Analyses">
                                 <field name="swot_ids"/>
-                            </group>
-                            <group string="Financial Forecasts">
-                                <field name="forecast_ids"/>
                             </group>
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
+                <chatter/>
             </form>
         </field>
     </record>
@@ -119,7 +110,7 @@
     <record id="action_bmc" model="ir.actions.act_window">
         <field name="name">Business Model Canvas</field>
         <field name="res_model">business.model.canvas</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create your first Business Model Canvas
