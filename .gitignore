@@ -6,3 +6,6 @@ __pycache__/
 *~
 .DS_Store
 *.log
+
+# OpenSpec (privat — finns i ~/plan/ på GitLab)
+openspec/

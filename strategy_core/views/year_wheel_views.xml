@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+        YEAR WHEEL VIEW: strategy.initiative — Annual Timeline
+        ═══════════════════════════════════════════════════════════════ -->
+
+        <record id="view_strategy_initiative_year_wheel" model="ir.ui.view">
+            <field name="name">strategy.initiative.year.wheel</field>
+            <field name="model">strategy.initiative</field>
+            <field name="type">year_wheel</field>
+            <field name="arch" type="xml">
+                <year_wheel string="Initiative Timeline"
+                            date_field="date_start"
+                            color_field="state"
+                            label_field="name"
+                            start_month="1" segments="12"/>
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+        YEAR WHEEL VIEW: strategy.plan — Strategic Plan Overview
+        ═══════════════════════════════════════════════════════════════════ -->
+
+        <record id="view_strategy_plan_year_wheel" model="ir.ui.view">
+            <field name="name">strategy.plan.year.wheel</field>
+            <field name="model">strategy.plan</field>
+            <field name="type">year_wheel</field>
+            <field name="arch" type="xml">
+                <year_wheel string="Strategic Plans"
+                            date_field="date_from"
+                            color_field="state"
+                            label_field="name"
+                            start_month="1" segments="12"/>
+            </field>
+        </record>
+
+    </data>
+</odoo>

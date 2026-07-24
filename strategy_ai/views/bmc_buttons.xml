@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- AI action buttons on business.model.canvas form -->
+        <record id="view_bmc_form_ai_buttons" model="ir.ui.view">
+            <field name="name">bmc.form.ai.buttons</field>
+            <field name="model">business.model.canvas</field>
+            <field name="inherit_id" ref="strategy_core.view_bmc_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_generate_bmc"
+                            string="AI Generate"
+                            type="object"
+                            class="btn-primary"
+                            confirm="This will generate all 9 BMC blocks using AI. Existing content will be replaced. Continue?"/>
+                    <button name="action_stress_test_bmc"
+                            string="Stress-Test"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="state == 'draft'"
+                            confirm="This will challenge all assumptions in the BMC. Continue?"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

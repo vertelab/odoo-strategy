@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+        BCG MATRIX VIEW: strategy.initiative — Investment vs Progress
+        ═══════════════════════════════════════════════════════════════ -->
+
+        <record id="view_strategy_initiative_bcg" model="ir.ui.view">
+            <field name="name">strategy.initiative.bcg</field>
+            <field name="model">strategy.initiative</field>
+            <field name="type">bcg_matrix</field>
+            <field name="arch" type="xml">
+                <bcg_matrix string="Initiative Portfolio (Investment vs Progress)"
+                            x_field="budget" y_field="progress"
+                            x_label="Budget" y_label="Progress %"
+                            label_field="name"
+                            x_midpoint="0" y_midpoint="50"
+                            quadrant_labels="High Investment,Progressing|High Investment,Lagging|Low Investment,Progressing|Low Investment,Lagging"/>
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+        BCG MATRIX VIEW: product.template — Standard Price vs Quantity
+        ═══════════════════════════════════════════════════════════════ -->
+
+        <record id="view_product_bcg_matrix" model="ir.ui.view">
+            <field name="name">product.template.bcg</field>
+            <field name="model">product.template</field>
+            <field name="type">bcg_matrix</field>
+            <field name="arch" type="xml">
+                <bcg_matrix string="Product Portfolio (Price vs Volume)"
+                            x_field="standard_price" y_field="qty_available"
+                            x_label="Standard Price" y_label="Quantity Available"
+                            label_field="name"
+                            x_midpoint="0" y_midpoint="0"
+                            quadrant_labels="High Price,High Volume|High Price,Low Volume|Low Price,High Volume|Low Price,Low Volume"/>
+            </field>
+        </record>
+
+    </data>
+</odoo>

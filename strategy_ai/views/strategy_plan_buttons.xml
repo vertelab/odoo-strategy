@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- AI action buttons on strategy.plan form -->
+        <record id="view_strategy_plan_form_ai_buttons" model="ir.ui.view">
+            <field name="name">strategy.plan.form.ai.buttons</field>
+            <field name="model">strategy.plan</field>
+            <field name="inherit_id" ref="strategy_core.view_strategy_plan_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_generate_business_plan"
+                            string="Generate Business Plan"
+                            type="object"
+                            class="btn-primary"
+                            confirm="This will generate an AI business plan based on all linked artifacts (BMC, SWOT, OKRs, Risks). Continue?"/>
+                    <button name="action_improve_business_plan"
+                            string="Improve with AI"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="not description"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -24,6 +24,8 @@
         'wizards/skill_sync_wizard_views.xml',
         'security/strategy_security.xml',
         'views/strategy_menu_views.xml',
+        'views/bcg_views.xml',
+        'views/year_wheel_views.xml',
     ],
     'demo': [],
     'assets': {

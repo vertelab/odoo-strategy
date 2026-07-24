@@ -34,6 +34,16 @@ class StrategyPlan(models.Model):
     date_to = fields.Date('To', tracking=True,
         help="End of the strategic period (typically 3-5 years)")
 
+    # -- Audience ----------------------------------------------------------
+    target_audience = fields.Selection([
+        ('internal', 'Internal'),
+        ('investor', 'Investor Pitch'),
+        ('bank', 'Bank / Loan Application'),
+        ('board', 'Board of Directors'),
+    ], string='Target Audience', default='internal', tracking=True,
+        help="Who will read this plan? Adapts AI-generated content "
+             "accordingly (language, detail level, financial focus).")
+
     # -- Foundation documents ----------------------------------------------
     vision_ids = fields.One2many(
         'strategy.vision', 'plan_id',
