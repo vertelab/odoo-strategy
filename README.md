@@ -45,3 +45,19 @@ sudo checkmodule -d <db> -m strategy_core
 ## License
 
 AGPL-3 — see [LICENSE](LICENSE)
+
+## AI-integration (bridges)
+
+**Princip: AI-förmågor (coworkers, skills, sessions) läggs ENBART i `_ai`-moduler — aldrig i domän-core.**
+
+| Modul | Roll |
+|-------|------|
+| `strategy_core` | Ren domänlogik (BMC, SWOT, OKR, risk, möten) — **ingen AI-kod** |
+| `strategy_ai` | **AI-brygga**: OKR Coach + Risk Analyst (ai.coworker-data), 2 ai.skill-poster; OKR→ai.org.goal-bridge (idempotent, external_ref-nyckel); Strategy Composer/Advisor/Review skapas av `ai_agent_core_strategy` (post_init_hook, ai.coworker) |
+| `strategy_finance` | Finansiella strategi-tillägg (forecasts) |
+
+### OKR-bridge
+`strategy_ai/models/okr_bridge.py` speglar `okr.objective` → `ai.org.goal` och
+`okr.key.result` → `ai.org.key.result` idempotent (söknyckel `external_ref =
+'okr.objective,<id>'`). Triggas automatiskt vid create/write; knapp
+`action_sync_ai_goal` finns på OKR-formuläret.
