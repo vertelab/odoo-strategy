@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Bridge: strategy.plan → ai.quest.powerbox() → generated business plan."""
+"""Bridge: strategy.plan → ai.coworker.powerbox() → generated business plan."""
 
 import logging
 from odoo import models, _
@@ -18,7 +18,7 @@ class StrategyPlan(models.Model):
         """
         self.ensure_one()
 
-        quest = self.env['ai.quest'].search([
+        quest = self.env['ai.coworker'].search([
             ('init_type', '=', 'powerbox'),
             ('name', '=', 'Strategy Composer'),
         ], limit=1)
@@ -123,7 +123,7 @@ class StrategyPlan(models.Model):
         if not self.description:
             return self.action_generate_business_plan()
 
-        quest = self.env['ai.quest'].search([
+        quest = self.env['ai.coworker'].search([
             ('init_type', '=', 'powerbox'),
             ('name', '=', 'Strategy Composer'),
         ], limit=1)

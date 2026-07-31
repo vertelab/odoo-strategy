@@ -4,10 +4,27 @@
         <field name="name">okr.tree</field>
         <field name="model">okr.objective</field>
         <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="department_id"/>
+                <field name="parent_id"/>
+                <filter name="strategic" string="Strategiska"
+                    domain="[('department_id','=',False),('parent_id','=',False)]"/>
+                <filter name="department" string="Avdelning"
+                    domain="[('department_id','!=',False)]"/>
+                <group expand="0" string="Gruppera">
+                    <filter name="by_department" string="Avdelning"
+                        context="{'group_by':'department_id'}"/>
+                    <filter name="by_parent" string="Strategiskt OKR"
+                        context="{'group_by':'parent_id'}"/>
+                </group>
+            </search>
             <list>
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
-                <field name="customer_id"/>
+                <field name="department_id" optional="show"/>
+                <field name="parent_id" optional="show"/>
+                <field name="customer_id" optional="hide"/>
                 <field name="progress" widget="progressbar"/>
                 <field name="state"/>
             </list>
@@ -26,10 +43,18 @@
                     <group>
                         <field name="name"/>
                         <field name="plan_id"/>
+                        <field name="department_id"
+                            attrs="{'invisible': [('parent_id', '!=', False)]}"
+                            help="Leave empty for strategic OKRs. Set for department-level OKRs."/>
+                        <field name="parent_id"
+                            attrs="{'invisible': [('department_id', '=', False)]}"
+                            domain="[('department_id','=',False),('parent_id','=',False)]"
+                            help="Link to the strategic OKR this department OKR supports."/>
                         <field name="customer_id"/>
                         <field name="bmc_id"/>
                     </group>
-                    <group string="Key Results">
+                    <group string="Key Results"
+                        attrs="{'invisible': [('child_ids', '!=', [])]}">
                         <field name="key_result_ids">
                             <list editable="bottom">
                                 <field name="sequence" widget="handle"/>
@@ -38,6 +63,17 @@
                                 <field name="current_value"/>
                                 <field name="unit"/>
                                 <field name="progress" widget="progressbar"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Department OKRs"
+                        attrs="{'invisible': [('child_ids', '=', [])]}">
+                        <field name="child_ids" readonly="1">
+                            <list>
+                                <field name="department_id"/>
+                                <field name="name"/>
+                                <field name="progress" widget="progressbar"/>
+                                <field name="state"/>
                             </list>
                         </field>
                     </group>

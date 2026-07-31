@@ -13,4 +13,26 @@
     <menuitem id="menu_strategy_config" name="Configuration" parent="menu_strategy_root" sequence="90" groups="group_strategy_manager"/>
     <menuitem id="menu_strategy_skill_sync" name="Sync Skills" parent="menu_strategy_config" sequence="10" action="action_skill_sync"/>
 
+    <!-- ═══════════════════════════════════════════════════════════════
+    MEETING MENU
+    ═══════════════════════════════════════════════════════════════ -->
+
+    <menuitem id="menu_strategy_meeting" name="Meetings"
+              parent="menu_strategy_root" sequence="47"
+              action="action_strategy_meeting"/>
+
+    <menuitem id="menu_department_reports" name="Department Reports"
+              parent="menu_strategy_root" sequence="48"
+              action="action_department_report"/>
+
+    <record id="action_strategy_meeting_template" model="ir.actions.act_window">
+        <field name="name">Meeting Templates</field>
+        <field name="res_model">strategy.meeting.template</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_strategy_meeting_config" name="Templates"
+              parent="menu_strategy_config" sequence="30"
+              action="action_strategy_meeting_template"/>
+
 </odoo>

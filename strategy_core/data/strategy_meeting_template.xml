@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- ═══════════════════════════════════════════════════════════════
+        BOARD MEETING TEMPLATE
+        ═══════════════════════════════════════════════════════════════ -->
+
+        <record id="meeting_template_board" model="strategy.meeting.template">
+            <field name="name">Styrelsemöte (Board Meeting)</field>
+            <field name="meeting_type">board</field>
+        </record>
+
+        <record id="mt_board_01" model="strategy.meeting.template.line">
+            <field name="sequence">10</field>
+            <field name="name">Mötets öppnande</field>
+            <field name="duration_minutes">5</field>
+            <field name="template_id" ref="meeting_template_board"/>
+        </record>
+        <record id="mt_board_02" model="strategy.meeting.template.line">
+            <field name="sequence">20</field>
+            <field name="name">Föregående protokoll</field>
+            <field name="duration_minutes">10</field>
+            <field name="template_id" ref="meeting_template_board"/>
+        </record>
+        <record id="mt_board_03" model="strategy.meeting.template.line">
+            <field name="sequence">30</field>
+            <field name="name">Ekonomisk rapport</field>
+            <field name="duration_minutes">15</field>
+            <field name="template_id" ref="meeting_template_board"/>
+        </record>
+        <record id="mt_board_04" model="strategy.meeting.template.line">
+            <field name="sequence">40</field>
+            <field name="name">Omvärldsbevakning</field>
+            <field name="duration_minutes">15</field>
+            <field name="template_id" ref="meeting_template_board"/>
+        </record>
+        <record id="mt_board_05" model="strategy.meeting.template.line">
+            <field name="sequence">50</field>
+            <field name="name">Strategisk status</field>
+            <field name="duration_minutes">20</field>
+            <field name="item_type">strategic_status</field>
+            <field name="template_id" ref="meeting_template_board"/>
+        </record>
+        <record id="mt_board_06" model="strategy.meeting.template.line">
+            <field name="sequence">60</field>
+            <field name="name">Beslutsärenden</field>
+            <field name="duration_minutes">30</field>
+            <field name="template_id" ref="meeting_template_board"/>
+        </record>
+        <record id="mt_board_07" model="strategy.meeting.template.line">
+            <field name="sequence">70</field>
+            <field name="name">Informationsärenden</field>
+            <field name="duration_minutes">10</field>
+            <field name="template_id" ref="meeting_template_board"/>
+        </record>
+        <record id="mt_board_08" model="strategy.meeting.template.line">
+            <field name="sequence">80</field>
+            <field name="name">Övriga frågor</field>
+            <field name="duration_minutes">5</field>
+            <field name="template_id" ref="meeting_template_board"/>
+        </record>
+        <record id="mt_board_09" model="strategy.meeting.template.line">
+            <field name="sequence">90</field>
+            <field name="name">Mötets avslutande</field>
+            <field name="duration_minutes">5</field>
+            <field name="template_id" ref="meeting_template_board"/>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+        MANAGEMENT MEETING TEMPLATE
+        ═══════════════════════════════════════════════════════════════ -->
+
+        <record id="meeting_template_management" model="strategy.meeting.template">
+            <field name="name">Ledningsgruppsmöte (Management Meeting)</field>
+            <field name="meeting_type">management</field>
+        </record>
+
+        <record id="mt_mgmt_01" model="strategy.meeting.template.line">
+            <field name="sequence">10</field>
+            <field name="name">Föregående protokoll &amp; action items</field>
+            <field name="duration_minutes">10</field>
+            <field name="template_id" ref="meeting_template_management"/>
+        </record>
+        <record id="mt_mgmt_02" model="strategy.meeting.template.line">
+            <field name="sequence">20</field>
+            <field name="name">Omvärldsbevakning</field>
+            <field name="duration_minutes">10</field>
+            <field name="template_id" ref="meeting_template_management"/>
+        </record>
+        <record id="mt_mgmt_03" model="strategy.meeting.template.line">
+            <field name="sequence">30</field>
+            <field name="name">Avdelningsrapport</field>
+            <field name="duration_minutes">15</field>
+            <field name="item_type">department_report</field>
+            <field name="template_id" ref="meeting_template_management"/>
+        </record>
+        <record id="mt_mgmt_04" model="strategy.meeting.template.line">
+            <field name="sequence">40</field>
+            <field name="name">Initiativuppföljning</field>
+            <field name="duration_minutes">15</field>
+            <field name="template_id" ref="meeting_template_management"/>
+        </record>
+        <record id="mt_mgmt_05" model="strategy.meeting.template.line">
+            <field name="sequence">50</field>
+            <field name="name">Operationella frågor</field>
+            <field name="duration_minutes">15</field>
+            <field name="template_id" ref="meeting_template_management"/>
+        </record>
+        <record id="mt_mgmt_06" model="strategy.meeting.template.line">
+            <field name="sequence">60</field>
+            <field name="name">Strategiska diskussioner</field>
+            <field name="duration_minutes">20</field>
+            <field name="template_id" ref="meeting_template_management"/>
+        </record>
+        <record id="mt_mgmt_07" model="strategy.meeting.template.line">
+            <field name="sequence">70</field>
+            <field name="name">Övriga frågor</field>
+            <field name="duration_minutes">5</field>
+            <field name="template_id" ref="meeting_template_management"/>
+        </record>
+        <record id="mt_mgmt_08" model="strategy.meeting.template.line">
+            <field name="sequence">80</field>
+            <field name="name">Sammanfattning &amp; nästa steg</field>
+            <field name="duration_minutes">5</field>
+            <field name="template_id" ref="meeting_template_management"/>
+        </record>
+
+    </data>
+</odoo>

@@ -27,7 +27,7 @@
             <form>
                 <header>
                     <button name="action_compute" type="object" string="Compute"
-                            class="btn-primary" states="draft"/>
+                            class="btn-primary" invisible="state != 'draft'"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>

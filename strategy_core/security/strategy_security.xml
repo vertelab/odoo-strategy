@@ -250,4 +250,152 @@
         <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
     </record>
 
+    <!-- ═══════════════════════════════════════════════════════════════
+    MEETING ACCESS
+    ═══════════════════════════════════════════════════════════════ -->
+
+    <record id="access_meeting_manager" model="ir.model.access">
+        <field name="name">meeting manager</field>
+        <field name="model_id" ref="model_strategy_meeting"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_meeting_user" model="ir.model.access">
+        <field name="name">meeting user</field>
+        <field name="model_id" ref="model_strategy_meeting"/>
+        <field name="group_id" ref="group_strategy_user"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_meeting_pi" model="ir.model.access">
+        <field name="name">meeting pi</field>
+        <field name="model_id" ref="model_strategy_meeting"/>
+        <field name="group_id" ref="group_strategy_pi_agent"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="access_agenda_item_manager" model="ir.model.access">
+        <field name="name">agenda item manager</field>
+        <field name="model_id" ref="model_strategy_meeting_agenda_item"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_agenda_item_user" model="ir.model.access">
+        <field name="name">agenda item user</field>
+        <field name="model_id" ref="model_strategy_meeting_agenda_item"/>
+        <field name="group_id" ref="group_strategy_user"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_agenda_item_pi" model="ir.model.access">
+        <field name="name">agenda item pi</field>
+        <field name="model_id" ref="model_strategy_meeting_agenda_item"/>
+        <field name="group_id" ref="group_strategy_pi_agent"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="access_participant_manager" model="ir.model.access">
+        <field name="name">participant manager</field>
+        <field name="model_id" ref="model_strategy_meeting_participant"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_participant_user" model="ir.model.access">
+        <field name="name">participant user</field>
+        <field name="model_id" ref="model_strategy_meeting_participant"/>
+        <field name="group_id" ref="group_strategy_user"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/><field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_participant_pi" model="ir.model.access">
+        <field name="name">participant pi</field>
+        <field name="model_id" ref="model_strategy_meeting_participant"/>
+        <field name="group_id" ref="group_strategy_pi_agent"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="access_decision_manager" model="ir.model.access">
+        <field name="name">decision manager</field>
+        <field name="model_id" ref="model_strategy_meeting_decision"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_decision_user" model="ir.model.access">
+        <field name="name">decision user</field>
+        <field name="model_id" ref="model_strategy_meeting_decision"/>
+        <field name="group_id" ref="group_strategy_user"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_decision_pi" model="ir.model.access">
+        <field name="name">decision pi</field>
+        <field name="model_id" ref="model_strategy_meeting_decision"/>
+        <field name="group_id" ref="group_strategy_pi_agent"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="access_meeting_template_manager" model="ir.model.access">
+        <field name="name">meeting template manager</field>
+        <field name="model_id" ref="model_strategy_meeting_template"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_meeting_template_user" model="ir.model.access">
+        <field name="name">meeting template user</field>
+        <field name="model_id" ref="model_strategy_meeting_template"/>
+        <field name="group_id" ref="group_strategy_user"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="access_meeting_template_line_manager" model="ir.model.access">
+        <field name="name">meeting template line manager</field>
+        <field name="model_id" ref="model_strategy_meeting_template_line"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_meeting_template_line_user" model="ir.model.access">
+        <field name="name">meeting template line user</field>
+        <field name="model_id" ref="model_strategy_meeting_template_line"/>
+        <field name="group_id" ref="group_strategy_user"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+    DEPARTMENT REPORT ACCESS
+    ═══════════════════════════════════════════════════════════════ -->
+
+    <record id="access_department_report_manager" model="ir.model.access">
+        <field name="name">department report manager</field>
+        <field name="model_id" ref="model_strategy_department_report"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="access_department_report_user" model="ir.model.access">
+        <field name="name">department report user</field>
+        <field name="model_id" ref="model_strategy_department_report"/>
+        <field name="group_id" ref="group_strategy_user"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/><field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="access_department_report_pi" model="ir.model.access">
+        <field name="name">department report pi</field>
+        <field name="model_id" ref="model_strategy_department_report"/>
+        <field name="group_id" ref="group_strategy_pi_agent"/>
+        <field name="perm_read" eval="True"/><field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
+    </record>
+
 </odoo>

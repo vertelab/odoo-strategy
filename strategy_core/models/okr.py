@@ -16,6 +16,14 @@ class OkrObjective(models.Model):
     plan_id = fields.Many2one('strategy.plan', 'Strategic Plan', ondelete='set null', tracking=True)
     bmc_id = fields.Many2one('business.model.canvas', 'Business Model Canvas', ondelete='set null')
     customer_id = fields.Many2one('res.partner', 'Customer', ondelete='set null')
+    department_id = fields.Many2one('hr.department', 'Department',
+        tracking=True,
+        help='Department that owns this OKR. Leave empty for strategic/company-level OKRs.')
+    parent_id = fields.Many2one('okr.objective', 'Parent OKR',
+        tracking=True,
+        help='The strategic OKR this department OKR supports. Only relevant when '
+             'department_id is set — creates a cascade: strategic → department → individual.')
+    child_ids = fields.One2many('okr.objective', 'parent_id', 'Department OKRs')
     key_result_ids = fields.One2many('okr.key.result', 'objective_id', 'Key Results')
     progress = fields.Float('Progress', compute='_compute_progress', store=True, aggregator='avg')
     state = fields.Selection([
@@ -24,15 +32,31 @@ class OkrObjective(models.Model):
     ], string='State', default='draft', tracking=True)
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
 
-    @api.depends('key_result_ids.progress')
+    @api.depends('key_result_ids.progress', 'child_ids.progress')
     def _compute_progress(self):
         for obj in self:
-            krs = obj.key_result_ids
-            obj.progress = sum(krs.mapped('progress')) / len(krs) if krs else 0.0
+            # If this OKR has child department OKRs, aggregate from them
+            if obj.child_ids:
+                child_progresses = obj.child_ids.mapped('progress')
+                obj.progress = sum(child_progresses) / len(child_progresses)
+            # Otherwise use direct key results
+            else:
+                krs = obj.key_result_ids
+                obj.progress = sum(krs.mapped('progress')) / len(krs) if krs else 0.0
 
     def action_activate(self): self.write({'state': 'active'})
     def action_achieve(self): self.write({'state': 'achieved'})
     def action_cancel(self): self.write({'state': 'cancelled'})
+
+    def _get_salience_level(self):
+        """Return salience level for nudge color coding.
+        🔴 critical (<60%), ⚠️ warning (60-80%), ✅ ok (>80%)."""
+        self.ensure_one()
+        if self.progress < 60:
+            return 'critical'
+        elif self.progress < 80:
+            return 'warning'
+        return 'ok'
 
     def open_form(self):
         self.ensure_one()

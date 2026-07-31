@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Bridge: business.model.canvas → ai.quest.powerbox() → generated BMC."""
+"""Bridge: business.model.canvas → ai.coworker.powerbox() → generated BMC."""
 
 import logging
 from odoo import models, _
@@ -14,7 +14,7 @@ class BusinessModelCanvas(models.Model):
         """Generate a complete BMC using the Strategy Composer AI quest."""
         self.ensure_one()
 
-        quest = self.env['ai.quest'].search([
+        quest = self.env['ai.coworker'].search([
             ('init_type', '=', 'powerbox'),
             ('name', '=', 'Strategy Composer'),
         ], limit=1)
@@ -71,7 +71,7 @@ class BusinessModelCanvas(models.Model):
         """Stress-test the BMC assumptions."""
         self.ensure_one()
 
-        quest = self.env['ai.quest'].search([
+        quest = self.env['ai.coworker'].search([
             ('init_type', '=', 'powerbox'),
             ('name', '=', 'Strategy Composer'),
         ], limit=1)

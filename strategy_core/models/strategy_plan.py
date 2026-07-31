@@ -72,6 +72,11 @@ class StrategyPlan(models.Model):
     # (a dependent module loaded after strategy_core). The inverse
     # strategy.forecast.plan_id Many2one still works for linking.
 
+    # -- Meetings -----------------------------------------------------------
+    meeting_ids = fields.One2many(
+        'strategy.meeting', 'plan_id',
+        string='Meetings')
+
     # -- Computed summary --------------------------------------------------
     total_initiatives = fields.Integer(
         'Initiatives', compute='_compute_summary')

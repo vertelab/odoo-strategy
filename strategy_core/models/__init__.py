@@ -13,3 +13,7 @@ from . import strategy_action
 from . import strategy_plan  # depends on plan_id in all above models
 from . import strategy_skill
 from . import strategy_skill_import
+from . import strategy_meeting
+from . import strategy_department_report
+from . import strategy_hr
+from . import strategy_meeting_yearwheel

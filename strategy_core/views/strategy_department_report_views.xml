@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+        DEPARTMENT REPORT — TREE VIEW
+        ═══════════════════════════════════════════════════════════════ -->
+
+        <record id="view_department_report_tree" model="ir.ui.view">
+            <field name="name">strategy.department.report.tree</field>
+            <field name="model">strategy.department.report</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="week_start"/>
+                    <field name="department_id"/>
+                    <field name="manager_id" optional="show"/>
+                    <field name="status" widget="badge"
+                           decoration-success="status == 'approved'"
+                           decoration-warning="status == 'reviewed'"
+                           decoration-muted="status == 'draft'"/>
+                    <field name="edit_distance" optional="show"/>
+                    <field name="version"/>
+                    <field name="ai_generated"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+        DEPARTMENT REPORT — FORM VIEW
+        ═══════════════════════════════════════════════════════════════════ -->
+
+        <record id="view_department_report_form" model="ir.ui.view">
+            <field name="name">strategy.department.report.form</field>
+            <field name="model">strategy.department.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_review" string="Mark Reviewed" type="object"
+                                class="btn-secondary"
+                                invisible="status not in ('draft',)"/>
+                        <button name="action_approve" string="Approve" type="object"
+                                class="btn-primary"
+                                invisible="status not in ('draft', 'reviewed')"/>
+                        <button name="action_regenerate" string="Regenerate" type="object"
+                                class="btn-warning"
+                                invisible="status == 'approved'"/>
+                        <field name="status" widget="statusbar"
+                               statusbar_visible="draft,reviewed,approved"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="department_id" string="Department"/>
+                            <h1>
+                                <field name="department_id"/>
+                            </h1>
+                            <h2>
+                                <field name="week_start"/> — <field name="week_end"/>
+                            </h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="manager_id"/>
+                                <field name="version"/>
+                                <field name="edit_distance"/>
+                            </group>
+                            <group>
+                                <field name="agenda_item_id"
+                                       options="{'no_create': True}"/>
+                                <field name="kaizen_report_id"
+                                       options="{'no_create': True}"/>
+                                <field name="ai_generated"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="draft" string="AI Draft">
+                                <field name="content" nolabel="1"
+                                       placeholder="AI-generated content will appear here..."/>
+                            </page>
+                            <page name="reviewed" string="Reviewed Content">
+                                <field name="edited_content" nolabel="1"
+                                       placeholder="Edit the AI draft here before approving..."/>
+                            </page>
+                            <page name="metrics" string="Metrics">
+                                <group>
+                                    <field name="generated_at"/>
+                                    <field name="opened_at"/>
+                                    <field name="reviewed_at"/>
+                                    <field name="approved_at"/>
+                                    <field name="time_to_approve_hours" widget="float_time"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+        DEPARTMENT REPORT — SEARCH VIEW
+        ═══════════════════════════════════════════════════════════════════ -->
+
+        <record id="view_department_report_search" model="ir.ui.view">
+            <field name="name">strategy.department.report.search</field>
+            <field name="model">strategy.department.report</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="department_id"/>
+                    <field name="manager_id"/>
+                    <field name="week_start"/>
+                    <filter name="filter_draft" string="AI Drafts"
+                            domain="[('status', '=', 'draft')]"/>
+                    <filter name="filter_reviewed" string="Reviewed"
+                            domain="[('status', '=', 'reviewed')]"/>
+                    <filter name="filter_approved" string="Approved"
+                            domain="[('status', '=', 'approved')]"/>
+                    <filter name="filter_this_week" string="This Week"
+                            domain="[('week_start', '>=', (context_today() -
+                            datetime.timedelta(days=context_today().weekday())))]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_department" string="Department"
+                                context="{'group_by': 'department_id'}"/>
+                        <filter name="group_status" string="Status"
+                                context="{'group_by': 'status'}"/>
+                        <filter name="group_week" string="Week"
+                                context="{'group_by': 'week_start'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+        DEPARTMENT REPORT — ACTION
+        ═══════════════════════════════════════════════════════════════════ -->
+
+        <record id="action_department_report" model="ir.actions.act_window">
+            <field name="name">Department Reports</field>
+            <field name="res_model">strategy.department.report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_department_report_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No department reports generated yet.
+                </p>
+                <p>
+                    Reports are auto-generated every Friday at 16:00
+                    for each active department.
+                </p>
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+        CRON: Weekly Department Report Generation
+        Runs every Friday at 16:00
+        ═══════════════════════════════════════════════════════════════════ -->
+
+        <record id="cron_weekly_department_report" model="ir.cron">
+            <field name="name">Weekly Department Report Generation</field>
+            <field name="model_id" ref="strategy_core.model_strategy_department_report"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_weekly_generate_reports()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">weeks</field>
+            <field name="numbercall">-1</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=(4 - DateTime.now().weekday()) % 7)).replace(hour=16, minute=0, second=0)"/>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+        CRON: Nudge Ladder — Daily escalation of open decisions
+        ═══════════════════════════════════════════════════════════════ -->
+
+        <record id="cron_nudge_ladder" model="ir.cron">
+            <field name="name">Nudge Ladder — Open Decision Escalation</field>
+            <field name="model_id" ref="strategy_core.model_strategy_meeting_decision"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_nudge_ladder()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(hours=6)).replace(minute=0, second=0)"/>
+            <field name="doall" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

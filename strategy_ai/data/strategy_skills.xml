@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Strategy AI skills (bridge module strategy_ai).
+        Not: de 21 klassiska strategy-skills (BMC, SWOT, OKR Framework m.fl.)
+        skapas redan av ai_agent_core_strategy post_init_hook. Här skapas
+        endast de skills som är specifika för OKR Coach och Risk Analyst.
+    -->
+
+    <record id="skill_strategy_okr_coach" model="ai.skill">
+        <field name="name">OKR Coach</field>
+        <field name="description">Coacha verksamheten i OKR-metodik — formulera, följa upp och omformulera Objectives och Key Results med stöd i strategiplanen.</field>
+        <field name="category">general</field>
+        <field name="compatibility">any</field>
+        <field name="trigger_keywords">okr, objective, key result, mål, delmål</field>
+        <field name="recipe_text"><![CDATA[
+# OKR Coach
+
+Hjälp verksamheten att formulera och följa upp OKR:er.
+
+## Process
+1. Läs strategiplanen (strategy.plan) och befintliga okr.objective.
+2. Bedöm OKR-kvalitet: specifik, mätbar, uppnåbar, relevant, tidsatt.
+3. Föreslå förbättrade formuleringar och Key Results.
+4. Följ upp progress och flagga risker (salience: &lt;60% kritiskt).
+
+## HITL
+Skrivåtgärder mot okr.objective/okr.key.result kräver godkännande.
+        ]]></field>
+    </record>
+
+    <record id="skill_strategy_risk_analyst" model="ai.skill">
+        <field name="name">Risk Analyst</field>
+        <field name="description">Analysera strategiska risker med sannolikhet × påverkan och föreslå mitigeringar.</field>
+        <field name="category">analysis</field>
+        <field name="compatibility">any</field>
+        <field name="trigger_keywords">risk, riskanalys, sannolikhet, påverkan, mitigering</field>
+        <field name="recipe_text"><![CDATA[
+# Risk Analyst
+
+Analysera strategiska risker och föreslå mitigeringar.
+
+## Process
+1. Samla strategy.risk + SWOT-hot + initiativberoenden.
+2. Bedöm sannolikhet (1-5) × påverkan (1-5) per risk.
+3. Rista riskmatris och identifiera topprisker.
+4. Föreslå mitigeringar och eskaleringströsklar.
+
+## HITL
+Nya/ändrade riskposter kräver godkännande innan de skrivs.
+        ]]></field>
+    </record>
+</odoo>

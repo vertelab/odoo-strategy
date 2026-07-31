@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+        BOARD & MANAGEMENT SECTION ON EMPLOYEE FORM
+        ═══════════════════════════════════════════════════════════════ -->
+
+        <record id="view_employee_form_inherit_strategy" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit.strategy</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='hr_settings']" position="inside">
+                    <group string="Board &amp; Management">
+                        <group string="Board of Directors">
+                            <field name="is_board_member"/>
+                            <field name="board_role"
+                                    invisible="is_board_member == False"
+                                    required="is_board_member == True"/>
+                            <field name="board_appointed_date"
+                                    invisible="is_board_member == False"/>
+                            <field name="board_term_end"
+                                    invisible="is_board_member == False"/>
+                        </group>
+                        <group string="Management Team">
+                            <field name="is_management_team"/>
+                            <field name="management_role"
+                                    invisible="is_management_team == False"/>
+                            <field name="management_role_other"
+                                    invisible="is_management_team == False or management_role != 'other'"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

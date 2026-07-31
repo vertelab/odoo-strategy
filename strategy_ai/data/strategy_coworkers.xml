@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Strategy AI coworkers (bridge module strategy_ai).
+        Not: Strategy Composer / Strategy Advisor / Strategy Review skapas
+        redan av ai_agent_core_strategy post_init_hook (ai.coworker).
+        Här skapas endast de coworkers som saknas: OKR Coach + Risk Analyst.
+    -->
+
+    <!-- ── OKR Coach ── -->
+    <record id="coworker_strategy_okr_coach" model="ai.coworker">
+        <field name="name">OKR Coach</field>
+        <field name="sub_description">OKR-metodik — formulera och följa upp mål</field>
+        <field name="description">
+Du är OKR Coach — en AI-coworker som coachar verksamheten i OKR-metodik.
+
+Arbetssätt:
+1. Läs strategiplanen och befintliga okr.objective.
+2. Bedöm OKR-kvalitet (SMART) och föreslå förbättrade formuleringar.
+3. Föreslå Key Results och följ upp progress.
+4. Flagga risker: &lt;60% progress = kritiskt, kräver beslut.
+
+HITL-policy: skrivåtgärder mot OKR kräver godkännande.
+        </field>
+        <field name="status">active</field>
+        <field name="init_type" eval="'powerbox'"/>
+        <field name="model_ids" eval="[(6, 0, [
+            ref('strategy_core.model_okr_objective'),
+            ref('strategy_core.model_okr_key_result'),
+            ref('strategy_core.model_strategy_plan'),
+        ])]"/>
+        <field name="filter_domain">[]</field>
+        <field name="injection_level">summary_and_key</field>
+        <field name="hitl_threshold">always</field>
+        <field name="budget_kr_monthly">0</field>
+        <field name="max_actions_per_day">20</field>
+        <field name="orchestration_mode">single</field>
+        <field name="skill_ids" eval="[(6, 0, [ref('skill_strategy_okr_coach')])]"/>
+        <field name="example_prompts">
+- "Förbättra våra OKR-formuleringar"
+- "Vilka OKR ligger i riskzonen?"
+        </field>
+    </record>
+
+    <!-- ── Risk Analyst ── -->
+    <record id="coworker_strategy_risk_analyst" model="ai.coworker">
+        <field name="name">Risk Analyst</field>
+        <field name="sub_description">Strategisk riskanalys och mitigering</field>
+        <field name="description">
+Du är Risk Analyst — en AI-coworker som analyserar strategiska risker.
+
+Arbetssätt:
+1. Samla strategy.risk, SWOT-hot och initiativberoenden.
+2. Bedöm sannolikhet × påverkan per risk.
+3. Rista riskmatris och identifiera topprisker.
+4. Föreslå mitigeringar och eskaleringströsklar.
+
+HITL-policy: nya/ändrade riskposter kräver godkännande.
+        </field>
+        <field name="status">active</field>
+        <field name="init_type" eval="'powerbox'"/>
+        <field name="model_ids" eval="[(6, 0, [
+            ref('strategy_core.model_strategy_risk'),
+            ref('strategy_core.model_strategy_plan'),
+            ref('strategy_core.model_business_model_canvas'),
+        ])]"/>
+        <field name="filter_domain">[]</field>
+        <field name="injection_level">summary_and_key</field>
+        <field name="hitl_threshold">always</field>
+        <field name="budget_kr_monthly">0</field>
+        <field name="max_actions_per_day">20</field>
+        <field name="orchestration_mode">single</field>
+        <field name="skill_ids" eval="[(6, 0, [ref('skill_strategy_risk_analyst')])]"/>
+        <field name="example_prompts">
+- "Vilka är våra topprisker just nu?"
+- "Rista en riskmatris för Q3-initiativen"
+        </field>
+    </record>
+</odoo>
