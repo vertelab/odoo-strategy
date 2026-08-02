@@ -28,7 +28,7 @@
     <record id="action_strategy_meeting_template" model="ir.actions.act_window">
         <field name="name">Meeting Templates</field>
         <field name="res_model">strategy.meeting.template</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem id="menu_strategy_meeting_config" name="Templates"

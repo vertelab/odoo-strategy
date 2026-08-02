@@ -136,7 +136,7 @@
         <record id="action_department_report" model="ir.actions.act_window">
             <field name="name">Department Reports</field>
             <field name="res_model">strategy.department.report</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
             <field name="search_view_id" ref="view_department_report_search"/>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
