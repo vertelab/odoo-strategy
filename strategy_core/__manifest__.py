@@ -9,7 +9,7 @@
     'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-strategy',
     'license': 'AGPL-3',
-    'depends': ['base', 'mail', 'hr', 'crm', 'sale_management', 'account', 'calendar'],
+    'depends': ['base', 'mail', 'hr', 'crm', 'sale_management', 'account', 'calendar', 'web_bcg_matrix', 'web_year_wheel'],
     'data': [
         'data/strategy_skill.xml',
         'data/strategy_skill_sync_actions.xml',
@@ -27,6 +27,7 @@
         'views/strategy_hr_views.xml',
         'wizards/skill_sync_wizard_views.xml',
         'security/strategy_security.xml',
+        'views/res_config_settings_views.xml',
         'views/strategy_menu_views.xml',
         'views/bcg_views.xml',
         'views/year_wheel_views.xml',
