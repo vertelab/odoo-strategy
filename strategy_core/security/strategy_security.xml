@@ -398,4 +398,14 @@
         <field name="perm_create" eval="True"/><field name="perm_unlink" eval="False"/>
     </record>
 
+
+    <record id="access_strategy_cron_line_manager" model="ir.model.access">
+        <field name="name">strategy.cron.line manager</field>
+        <field name="model_id" ref="model_strategy_cron_line"/>
+        <field name="group_id" ref="group_strategy_manager"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
 </odoo>

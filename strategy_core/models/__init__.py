@@ -17,3 +17,4 @@ from . import strategy_meeting
 from . import strategy_department_report
 from . import strategy_hr
 from . import strategy_meeting_yearwheel
+from . import res_config_settings
