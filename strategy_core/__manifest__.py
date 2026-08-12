@@ -3,7 +3,7 @@
 
 {
     'name': 'Strategy Core',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.1.0',
     'category': 'Strategy',
     'summary': 'Business strategy tools — BMC, SWOT, VPC, OKR, Porter, Ansoff, BCG, Risk Matrix',
     'author': 'Vertel Sverige AB',
