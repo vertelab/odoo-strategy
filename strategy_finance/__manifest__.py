@@ -7,7 +7,7 @@
     'category': 'Strategy',
     'summary': 'Financial forecasts and scenario modeling for business strategy',
     'author': 'Vertel Sverige AB',
-    'website': 'https://vertel.se/apps/odoo-strategy',
+    'website': 'https://vertel.se/apps/odoo-strategy/strategy_finance',
     'license': 'AGPL-3',
     'depends': ['strategy_core', 'account'],
     'data': [

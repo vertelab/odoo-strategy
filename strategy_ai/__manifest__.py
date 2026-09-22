@@ -5,6 +5,7 @@
     'summary': 'AI-powered strategy tools — bridge between strategy models and AI agents',
     'category': 'Strategy',
     'author': 'Vertel AB',
+    'website': 'https://vertel.se/apps/odoo-strategy/strategy_ai',
     'license': 'AGPL-3',
     'depends': ['strategy_core', 'ai_agent_core'],
     'data': [

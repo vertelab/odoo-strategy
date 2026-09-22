@@ -7,7 +7,7 @@
     'category': 'Reporting',
     'summary': 'Dashboard adapters for odoo-strategy data',
     'author': 'Vertel Sverige AB',
-    'website': 'https://vertel.se',
+    'website': 'https://vertel.se/apps/odoo-strategy/strategy_dashboard_vrtl',
     'license': 'AGPL-3',
     'depends': ['dashboard_vrtl', 'strategy_finance'],
     'data': [

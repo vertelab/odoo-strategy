@@ -7,7 +7,7 @@
     'category': 'Strategy',
     'summary': 'Business strategy tools — BMC, SWOT, VPC, OKR, Porter, Ansoff, BCG, Risk Matrix',
     'author': 'Vertel Sverige AB',
-    'website': 'https://vertel.se/apps/odoo-strategy',
+    'website': 'https://vertel.se/apps/odoo-strategy/strategy_core',
     'license': 'AGPL-3',
     'depends': ['base', 'mail', 'hr', 'crm', 'sale_management', 'account', 'calendar', 'web_bcg_matrix', 'web_year_wheel'],
     'data': [
