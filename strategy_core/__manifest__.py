@@ -5,7 +5,18 @@
     'name': 'Strategy Core',
     'version': '18.0.1.1.0',
     'category': 'Strategy',
-    'summary': 'Business strategy tools — BMC, SWOT, VPC, OKR, Porter, Ansoff, BCG, Risk Matrix',
+    'summary': 'Business strategy tools — BMC, SWOT, VPC, OKR, Porter, Ansoff, BCG, Risk Matrix.',
+    'description': '''
+Strategy Core
+=============
+
+    Business strategy tools — BMC, SWOT, VPC, OKR, Porter, Ansoff, BCG, Risk Matrix.
+
+    Features:
+
+        - UI Integration: Extends 15 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on business.model.canvas, hr.employee, mail.thread, okr.key.result.
+    ''',
     'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-strategy/strategy_core',
     'license': 'AGPL-3',

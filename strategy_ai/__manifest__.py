@@ -2,7 +2,18 @@
 {
     'name': 'Strategy AI Bridge',
     'version': '18.0.1.0.0',
-    'summary': 'AI-powered strategy tools — bridge between strategy models and AI agents',
+    'summary': 'AI-powered strategy tools — bridge between strategy models and AI agents.',
+    'description': '''
+Strategy AI Bridge
+==================
+
+    AI-powered strategy tools — bridge between strategy models and AI agents.
+
+    Features:
+
+        - UI Integration: Extends 2 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on ai.org.goal, business.model.canvas, okr.key.result, okr.objective.
+    ''',
     'category': 'Strategy',
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-strategy/strategy_ai',

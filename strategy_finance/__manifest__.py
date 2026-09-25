@@ -5,7 +5,18 @@
     'name': 'Strategy Finance',
     'version': '18.0.1.0.0',
     'category': 'Strategy',
-    'summary': 'Financial forecasts and scenario modeling for business strategy',
+    'summary': 'Financial forecasts and scenario modeling for business strategy.',
+    'description': '''
+Strategy Finance
+================
+
+    Financial forecasts and scenario modeling for business strategy.
+
+    Features:
+
+        - UI Integration: Extends 2 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on strategy.forecast, strategy.forecast.line, strategy.scenario, strategy.scenario.line.
+    ''',
     'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-strategy/strategy_finance',
     'license': 'AGPL-3',

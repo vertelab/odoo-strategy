@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Strategy Dashboard Vrtl icon">
+  <rect width="128" height="128" rx="16" fill="#0F172A"/>
+  <g transform="translate(40, 40) scale(2.0)">
+    <g fill="none" stroke="#F59E0B" stroke-width="2.2">
+      <circle cx="12" cy="12" r="10"/>
+      <polygon points="12,5 15,14 12,12 9,14" fill="#F59E0B"/></g>
+  </g>
+</svg>
